@@ -69,17 +69,14 @@ func NewWithConfig(config Config) *Limiter {
 	if config.Expiration == 0 {
 		config.Expiration = 30 * time.Minute
 	}
-
 	// 确保分片数量是2的幂，以便进行高效的位运算
 	if config.ShardCount <= 0 || (config.ShardCount&(config.ShardCount-1)) != 0 {
 		config.ShardCount = defaultShardCount
 	}
-
 	l := &Limiter{
 		shards: make([]*shard, config.ShardCount),
 		config: config,
 	}
-
 	// 初始化所有分片
 	for i := 0; i < config.ShardCount; i++ {
 		l.shards[i] = newShard(config.GCInterval, config.Expiration)
@@ -166,7 +163,6 @@ func (s *shard) gc(interval, expiration time.Duration) {
 			return
 		default:
 		}
-
 		select {
 		case <-ticker.C:
 			s.mutex.Lock()
@@ -239,20 +235,16 @@ func (s *shard) stop() {
 	s.stopOnce.Do(func() {
 		close(s.stopCh)
 	})
-
 	// 等待 gc goroutine 完全退出
 	s.waitGroup.Wait()
-
 	// 锁定并进行最终的资源清理
 	// 因为 gc 已经退出，所以此时只有 Get/Del 会竞争锁
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
-
 	// 检查是否已被清理，防止重复操作
 	if s.limiter == nil {
 		return
 	}
-
 	// 将所有 session 对象放回对象池
 	for _, sess := range s.limiter {
 		sess.limiter = nil
