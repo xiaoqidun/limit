@@ -1,5 +1,5 @@
 # limit [![PkgGoDev](https://pkg.go.dev/badge/github.com/xiaoqidun/limit)](https://pkg.go.dev/github.com/xiaoqidun/limit)
-一个高性能、并发安全的 Go 语言动态速率限制器。
+一个高性能、并发安全的 Go 语言动态速率限制器
 
 # 安装指南
 ```shell
@@ -41,4 +41,4 @@ func main() {
 ```
 
 # 授权协议
-本项目基于 [Apache License 2.0](https://github.com/xiaoqidun/limit/blob/main/LICENSE) 授权。
+本项目使用 [Apache License 2.0](https://github.com/xiaoqidun/limit/blob/main/LICENSE) 授权协议
