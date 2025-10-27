@@ -1,5 +1,5 @@
 module github.com/xiaoqidun/limit
 
-go 1.25.1
+go 1.25.3
 
-require golang.org/x/time v0.13.0
+require golang.org/x/time v0.14.0
