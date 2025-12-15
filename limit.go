@@ -265,14 +265,14 @@ type session struct {
 
 // sessionPool 使用 sync.Pool 来复用 session 对象，以减少 GC 压力。
 var sessionPool = sync.Pool{
-	New: func() interface{} {
+	New: func() any {
 		return new(session)
 	},
 }
 
 // fnvHasherPool 使用 sync.Pool 来复用 FNV-1a 哈希对象，以减少高并发下的内存分配。
 var fnvHasherPool = sync.Pool{
-	New: func() interface{} {
+	New: func() any {
 		return fnv.New32a()
 	},
 }
